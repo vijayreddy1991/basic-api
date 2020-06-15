@@ -15,6 +15,11 @@ resources:
       imageName: basicapi
       imageTag: latest
 
+  - name: app_test_results
+    type: PropertyBag
+    configuration:
+      passing: 0
+      failing: 0
 
 pipelines:
   - name: jenkins_demo_mb
@@ -41,6 +46,7 @@ pipelines:
             - name: build_app
           outputResources:
             - name: app_docker
+
       - name: test_app
         type: Jenkins
         configuration:
@@ -52,16 +58,14 @@ pipelines:
             foo: bar
           integrations:
             - name: jenkins
-          # inputSteps:
-          #   - name: firstStep
           outputResources:
-            - name: johns_jenkins_output
+            - name: app_test_results
 
       - name: lastStep
         type: Bash
         configuration:
           inputResources:
-            - name: johns_jenkins_output
+            - name: app_test_results
         execution:
           onExecute:
-            - printenv | grep johns_jenkins_output
+            - printenv | grep app_test_results
