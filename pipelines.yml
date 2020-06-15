@@ -1,5 +1,5 @@
 resources:
-  - name: app_source_mb
+  - name: app_source
     type: GitRepo
     configuration:
       gitProvider: johns_bbs
@@ -22,25 +22,25 @@ resources:
       failing: 0
 
 pipelines:
-  - name: jenkins_demo_mb
+  - name: jenkins_demo_1
     steps:
       - name: build_app
         type: DockerBuild
         configuration:
           affinityGroup: buildAndPush
           inputResources:
-            - name: app_source_mb
+            - name: app_source
           dockerFileLocation: "."
           dockerFileName: Dockerfile
           dockerImageName: "pipe-master.jfrog.info:8082/docker-local/basicapi"
-          dockerImageTag: "{{gitBranch}}.${run_number}"
+          dockerImageTag: "${res_app_source_branchName}.${run_number}"
         execution:
           onStart:
-            - pushd $res_app_source_mb_resourcePath
+            - pushd $res_app_source_resourcePath
             - export OPTIONS=""
-            - if [ {{gitBranch}} == "master" ]; then OPTIONS="--production"; fi
+            - if [ "$res_app_source_branchName" == "master" ]; then OPTIONS="--production"; fi
             - npm install $OPTIONS
-            - if [ {{gitBranch}} == "dev" ]; then npm test; fi
+            - if [ $res_app_source_branchName == "dev" ]; then npm test; fi
             - popd
 
       - name: push_app
@@ -58,8 +58,7 @@ pipelines:
       - name: test_app
         type: Jenkins
         configuration:
-          jenkinsJobName: app_test
-          jenkinsBranchName: {{gitBranch}}
+          jenkinsJobName: test-basic-api
           inputResources:
             - name: app_docker
           buildParameters:
