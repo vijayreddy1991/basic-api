@@ -1,9 +1,9 @@
 resources:
-  - name: app_mb
+  - name: app_source_mb
     type: GitRepo
     configuration:
       gitProvider: johns_bbs
-      path: ~johns/step_samples
+      path: ~johns/basic-api
       branches:
         include: ^{{gitBranch}}$
 
@@ -29,7 +29,7 @@ pipelines:
         configuration:
           affinityGroup: buildAndPush
           inputResources:
-            - name: app_mb
+            - name: app_source_mb
           dockerFileLocation: "."
           dockerFileName: Dockerfile
           dockerImageName: "http://pipe-master.jfrog.info:8082/docker-local/basicapi"
