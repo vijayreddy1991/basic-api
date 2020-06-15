@@ -10,7 +10,7 @@ resources:
   - name: app_docker
     type: Image
     configuration:
-      repo: artMaster
+      registry: artMaster
       sourceRepository: docker-local
       imageName: basicapi
       imageTag: latest
@@ -23,7 +23,7 @@ pipelines:
         type: DockerBuild
         configuration:
           affinityGroup: buildAndPush
-          inputResouces:
+          inputResources:
             - name: app_mb
           dockerFileLocation: .
           dockerFileName: Dockerfile
@@ -34,6 +34,9 @@ pipelines:
         type: DockerPush
         configuration:
           affinityGroup: buildAndPush
+          targetRepository: docker-local
+          integrations:
+            - name: artMaster
           inputSteps:
             - name: build_app
           outputResources:
