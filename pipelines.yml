@@ -12,7 +12,7 @@ resources:
     configuration:
       registry: art_master
       sourceRepository: docker-local
-      imageName: basicapi
+      imageName: http://pipe-master.jfrog.info:8082/docker-local/basicapi
       imageTag: latest
 
   - name: app_test_results
@@ -32,7 +32,7 @@ pipelines:
             - name: app_source_mb
           dockerFileLocation: "."
           dockerFileName: Dockerfile
-          dockerImageName: "http://pipe-master.jfrog.info:8082/docker-local/basicapi"
+          dockerImageName: "pipe-master.jfrog.info:8082/docker-local/basicapi"
           dockerImageTag: "{{gitBranch}}.${run_number}"
         execution:
           onStart:
