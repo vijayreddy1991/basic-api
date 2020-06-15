@@ -38,9 +38,9 @@ pipelines:
           onStart:
             - pushd $res_app_source_mb_resourcePath
             - export OPTIONS=""
-            - if [ {{gitBranch}} == "dev" ]; then npm test; fi
             - if [ {{gitBranch}} == "master" ]; then OPTIONS="--production"; fi
             - npm install $OPTIONS
+            - if [ {{gitBranch}} == "dev" ]; then npm test; fi
             - popd
 
       - name: push_app
