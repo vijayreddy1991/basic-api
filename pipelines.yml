@@ -30,10 +30,18 @@ pipelines:
           affinityGroup: buildAndPush
           inputResources:
             - name: app_mb
-          dockerFileLocation: .
+          dockerFileLocation: "."
           dockerFileName: Dockerfile
-          dockerImageName: http://pipe-master.jfrog.info:8082/docker-local/basicapi
-          dockerImageTag: {{gitBranch}}.${run_number}
+          dockerImageName: "http://pipe-master.jfrog.info:8082/docker-local/basicapi"
+          dockerImageTag: "{{gitBranch}}.${run_number}"
+        execution:
+          onStart:
+            - pushd $res_app_mb_resourcePath
+            - export OPTIONS=""
+            - if [ {{gitBranch}} == "dev" ]; then npm test;
+            - if [ {{gitBranch}} == "master" ]; then OPTIONS="--production";
+            - npm install $OPTIONS
+            - popd
 
       - name: push_app
         type: DockerPush
