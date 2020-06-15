@@ -36,7 +36,7 @@ pipelines:
           dockerImageTag: "{{gitBranch}}.${run_number}"
         execution:
           onStart:
-            - pushd $res_app_mb_resourcePath
+            - pushd $res_app_source_mb_resourcePath
             - export OPTIONS=""
             - if [ {{gitBranch}} == "dev" ]; then npm test; fi
             - if [ {{gitBranch}} == "master" ]; then OPTIONS="--production"; fi
