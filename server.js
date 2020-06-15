@@ -6,7 +6,7 @@ console.log('starting');
 
 app.get('/', function(req, res) {
   console.log('received request for /');
-  var response ='<html><h2>Hello, world!</h2></html>'
+  var response = '<html><h2>Hello, world!</h2></html>';
   res.send(response);
 });
 
@@ -17,7 +17,6 @@ app.get('/system', function(req, res) {
   };
   res.send(response);
 });
-
 
 var port = process.env.PORT || 8888;
 console.log('Listening on port: ' + port);
