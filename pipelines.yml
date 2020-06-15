@@ -10,7 +10,7 @@ resources:
   - name: app_docker
     type: Image
     configuration:
-      registry: artMaster
+      registry: art_master
       sourceRepository: docker-local
       imageName: basicapi
       imageTag: latest
@@ -27,7 +27,7 @@ pipelines:
             - name: app_mb
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: basicapi
+          dockerImageName: http://pipe-master.jfrog.info:8082/docker-local/basicapi
           dockerImageTag: {{gitBranch}}.${run_number}
 
       - name: push_app
@@ -36,7 +36,7 @@ pipelines:
           affinityGroup: buildAndPush
           targetRepository: docker-local
           integrations:
-            - name: artMaster
+            - name: art_master
           inputSteps:
             - name: build_app
           outputResources:
