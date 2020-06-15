@@ -6,17 +6,15 @@ console.log('starting');
 
 app.get('/', function(req, res) {
   console.log('received request for /');
-  var response ='<html><h2>Hello, frogs!</h2></html>'
+  var response ='<html><h2>Hello, world!</h2></html>'
   res.send(response);
 });
 
 app.get('/system', function(req, res) {
   console.log('received request for /system');
-  var version = process.env.appVersion || '0.0.0';
   var response = {
-    status: 'healthy',
-    version: version
-  }
+    status: 'healthy'
+  };
   res.send(response);
 });
 

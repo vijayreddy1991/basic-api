@@ -1,3 +1,3 @@
-### basic_api
+### basic-api
 
 simple nodejs server
