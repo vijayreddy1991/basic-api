@@ -23,7 +23,6 @@ resources:
 
 pipelines:
   - name: jenkins_demo_mb
-    configuration:
     steps:
       - name: build_app
         type: DockerBuild
