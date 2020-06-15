@@ -24,7 +24,6 @@ resources:
 pipelines:
   - name: jenkins_demo_mb
     configuration:
-      nodePool: u16Dynamic
     steps:
       - name: build_app
         type: DockerBuild
