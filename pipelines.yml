@@ -1,0 +1,64 @@
+resources:
+  - name: app_mb
+    type: GitRepo
+    configuration:
+      gitProvider: johns_bbs
+      path: ~johns/step_samples
+      branches:
+        include: ^{{gitBranch}}$
+
+  - name: app_docker
+    type: Image
+    configuration:
+      repo: artMaster
+      sourceRepository: docker-local
+      imageName: basicapi
+      imageTag: latest
+
+
+pipelines:
+  - name: jenkins_demo_mb
+    steps:
+      - name: build_app
+        type: DockerBuild
+        configuration:
+          affinityGroup: buildAndPush
+          inputResouces:
+            - name: app_mb
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: basicapi
+          dockerImageTag: {{gitBranch}}.${run_number}
+
+      - name: push_app
+        type: DockerPush
+        configuration:
+          affinityGroup: buildAndPush
+          inputSteps:
+            - name: build_app
+          outputResources:
+            - name: app_docker
+      - name: test_app
+        type: Jenkins
+        configuration:
+          jenkinsJobName: app_test
+          jenkinsBranchName: {{gitBranch}}
+          inputResources:
+            - name: app_docker
+          buildParameters:
+            foo: bar
+          integrations:
+            - name: jenkins
+          # inputSteps:
+          #   - name: firstStep
+          outputResources:
+            - name: johns_jenkins_output
+
+      - name: lastStep
+        type: Bash
+        configuration:
+          inputResources:
+            - name: johns_jenkins_output
+        execution:
+          onExecute:
+            - printenv | grep johns_jenkins_output
