@@ -62,7 +62,9 @@ pipelines:
           inputResources:
             - name: app_docker
           buildParameters:
-            foo: bar
+            runNumber: ${run_number}
+            imageName: ${res_app_docker_imageName}
+            imageTag: ${res_app_docker_imageTag}
           integrations:
             - name: jenkins
           outputResources:
