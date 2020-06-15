@@ -5,7 +5,7 @@ resources:
       gitProvider: johns_bbs
       path: ~johns/basic-api
       branches:
-        include: ^{{gitBranch}}$
+        include: ^master|dev$
 
   - name: app_docker
     type: Image
