@@ -5,7 +5,7 @@ resources:
       gitProvider: johns_bbs
       path: ~johns/basic-api
       branches:
-        include: ^master$
+        include: {{gitBranch}}
 
   - name: app_docker
     type: Image
@@ -61,6 +61,7 @@ pipelines:
         type: Jenkins
         configuration:
           jenkinsJobName: test-basic-api
+          jenkinsBranchName: {{gitBranch}}
           inputResources:
             - name: app_docker
           buildParameters:
