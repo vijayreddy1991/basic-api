@@ -23,8 +23,6 @@ pipeline {
                         {
                           "name": "app_test_results",
                           "content": {
-                            "runNumber": "${params.runNumber}",
-                            "jobName": "${JOB_NAME}",
                             "passing": 1234,
                             "failing": 0
                           }

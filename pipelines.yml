@@ -23,6 +23,8 @@ resources:
 
 pipelines:
   - name: jenkins_demo_1
+    configuration:
+      nodePool: static-node-pool
     steps:
       - name: build_app
         type: DockerBuild
