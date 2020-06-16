@@ -11,8 +11,8 @@ pipeline {
             steps {
                 sh 'npm --version'
                 echo "RunNumber sent from pipelines is: ${params.runNumber}"
-                ehco "Running tests on image ${params.imageName}:${params.imageTag}"
-                sh 'printenv'
+                echo "Running tests on image ${params.imageName}:${params.imageTag}"
+                echo "pulling image ${params.imageName}:${params.imageTag}"
                 sh 'sleep 30'
             }
         }
