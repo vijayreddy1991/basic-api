@@ -7,7 +7,7 @@ resources:
       branches:
         include: ^master|dev$
 
-  - name: app_docker
+  - name: app_docker_image
     type: Image
     configuration:
       registry: art_master
@@ -53,18 +53,18 @@ pipelines:
           inputSteps:
             - name: build_app
           outputResources:
-            - name: app_docker
+            - name: app_docker_image
 
       - name: test_app
         type: Jenkins
         configuration:
           jenkinsJobName: test-basic-api
           inputResources:
-            - name: app_docker
+            - name: app_docker_image
           buildParameters:
             runNumber: ${run_number}
-            imageName: ${res_app_docker_imageName}
-            imageTag: ${res_app_docker_imageTag}
+            imageName: ${res_app_docker_image_imageName}
+            imageTag: ${res_app_docker_image_imageTag}
           integrations:
             - name: jenkins
           outputResources:
