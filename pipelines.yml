@@ -60,7 +60,7 @@ pipelines:
       - name: test_app
         type: Jenkins
         configuration:
-          jenkinsJobName: test-basic-api
+          jenkinsJobName: basic-api-mb
           jenkinsBranchName: {{gitBranch}}
           inputResources:
             - name: app_docker
