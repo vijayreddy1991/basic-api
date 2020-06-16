@@ -7,12 +7,12 @@ resources:
       branches:
         include: ^master|dev$
 
-  - name: app_docker_image
+  - name: app_docker
     type: Image
     configuration:
       registry: art_master
       sourceRepository: docker-local
-      imageName: http://pipe-master.jfrog.info:8082/docker-local/basicapi
+      imageName: pipe-master.jfrog.info:8082/docker-local/basicapi
       imageTag: latest
 
   - name: app_test_results
@@ -53,18 +53,18 @@ pipelines:
           inputSteps:
             - name: build_app
           outputResources:
-            - name: app_docker_image
+            - name: app_docker
 
       - name: test_app
         type: Jenkins
         configuration:
           jenkinsJobName: test-basic-api
           inputResources:
-            - name: app_docker_image
+            - name: app_docker
           buildParameters:
             runNumber: ${run_number}
-            imageName: ${res_app_docker_image_imageName}
-            imageTag: ${res_app_docker_image_imageTag}
+            imageName: ${res_app_docker_imageName}
+            imageTag: ${res_app_docker_imageTag}
           integrations:
             - name: jenkins
           outputResources:
@@ -75,7 +75,7 @@ pipelines:
         configuration:
           inputResources:
             - name: app_test_results
-            - name: app_docker_image
+            - name: app_docker
         execution:
           onExecute:
             - printenv | grep app_test_results
