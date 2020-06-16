@@ -13,7 +13,7 @@ pipeline {
                 echo "RunNumber sent from pipelines is: ${params.runNumber}"
                 echo "Running tests on image ${params.imageName}:${params.imageTag}"
                 echo "pulling image ${params.imageName}:${params.imageTag}"
-                sh 'sleep 30'
+                sh 'sleep 10'
             }
         }
         stage('report') {
