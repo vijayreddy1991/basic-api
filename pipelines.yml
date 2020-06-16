@@ -75,6 +75,7 @@ pipelines:
         configuration:
           inputResources:
             - name: app_test_results
+            - name: app_docker_image
         execution:
           onExecute:
             - printenv | grep app_test_results
