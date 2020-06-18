@@ -76,8 +76,11 @@ pipelines:
       - name: lastStep
         type: Bash
         configuration:
+          integrations:
+            - name: jenkins
           inputResources:
             - name: app_test_results
         execution:
           onExecute:
             - printenv | grep res_app_test_results
+            - printenv | grep int_jenkins_
