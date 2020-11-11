@@ -1,6 +1,6 @@
 
 pipeline {
-    agent any //{ docker { image 'node:6.3' } }
+    agent { docker { image 'node:6.3' } }
 //    parameters {
 //      string(name: 'runNumber', defaultValue: '0', description: 'JFrog Pipelines Run Number')
 //      string(name: 'imageName', description: 'image to test')
@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                //sh 'npm --version'
+                sh 'npm --version'
                 echo "hello world"
                 //echo "RunNumber sent from pipelines is: ${params.runNumber}"
                 //echo "Running tests on image ${params.imageName}:${params.imageTag}"
